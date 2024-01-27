@@ -1,31 +1,34 @@
-import { StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet} from "react-native";
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+import { View, Text } from "@/components/Themed";
+import HeaderComponent from "@/components/HeaderComponent";
+import MovieComponents from "@/components/MovieComponents";
+import TopMovieComponents from "@/components/TopMovieComponents";
+import FavoriteComponents from "@/components/FavoriteComponents";
+import { useState } from "react";
+import moviesData from "@/assets/data/moviesData";
 
 export default function TabOneScreen() {
+
+  const [searchTitle, setSearchTitle] = useState<string>("");
+  const movies = moviesData.filter(movie => movie.title.includes(searchTitle))
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One!!</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <ScrollView style={styles.container}>
+      <HeaderComponent setSearchTitle = {setSearchTitle}/>
+
+      <MovieComponents movies = {movies}/>
+
+      <TopMovieComponents movies = {movies} />
+
+      <FavoriteComponents movies = {movies} />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+    backgroundColor: "#000"
+  }
+})
