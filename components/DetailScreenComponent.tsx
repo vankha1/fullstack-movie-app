@@ -19,7 +19,7 @@ const DetailScreenComponent = ({ movie } : MovieComponentProps) => {
     <Link href={"./movie/id"} asChild>
       <ScrollView style={styles.container}>
         <Image
-          source={{ uri: movie.image }}
+          source={{ uri: movie?.image }}
           style={styles.image}
         />
 
